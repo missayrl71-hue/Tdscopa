@@ -1,1 +1,799 @@
-teste
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brasil Urgente – Notícias que o governo não quer que você saiba</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Open+Sans:wght@400;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #CC0000;
+      --dark-red: #990000;
+      --yellow: #FFD600;
+      --dark: #1a1a1a;
+      --mid: #444;
+      --light-gray: #f4f4f4;
+      --border: #ddd;
+      --body-font: 'Open Sans', Arial, sans-serif;
+      --serif: 'Merriweather', Georgia, serif;
+    }
+
+    body { font-family: var(--body-font); background: #fff; color: var(--dark); font-size: 15px; line-height: 1.6; }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      background: var(--dark);
+      color: #aaa;
+      font-size: 11px;
+      padding: 5px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .top-bar a { color: #aaa; text-decoration: none; margin-left: 12px; }
+    .top-bar a:hover { color: #fff; }
+    .top-bar-left { display: flex; gap: 14px; }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--red);
+      padding: 0;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+    }
+    .logo {
+      font-family: var(--serif);
+      color: #fff;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .logo span { color: var(--yellow); }
+    .logo small {
+      display: block;
+      font-size: 10px;
+      font-family: var(--body-font);
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-top: 2px;
+    }
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+    .header-date { color: rgba(255,255,255,0.8); font-size: 11px; }
+    .header-search {
+      display: flex;
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .header-search input {
+      border: none;
+      background: transparent;
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 12px;
+      outline: none;
+      width: 160px;
+    }
+    .header-search input::placeholder { color: rgba(255,255,255,0.6); }
+    .header-search button {
+      background: var(--dark-red);
+      border: none;
+      color: #fff;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      background: #111;
+      border-top: 3px solid var(--yellow);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      padding: 0 16px;
+      overflow-x: auto;
+    }
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 10px 14px;
+      display: block;
+      white-space: nowrap;
+      transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover, nav a.active { color: #fff; background: var(--red); }
+
+    /* ===== BREAKING TICKER ===== */
+    .ticker-bar {
+      background: var(--yellow);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .ticker-label {
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ticker-track {
+      overflow: hidden;
+      flex: 1;
+    }
+    .ticker-inner {
+      display: inline-block;
+      white-space: nowrap;
+      animation: ticker 40s linear infinite;
+      font-size: 12px;
+      font-weight: 700;
+      color: #111;
+      padding-left: 100%;
+    }
+    .ticker-inner span { margin: 0 40px; }
+    .ticker-inner span::before { content: "▶ "; color: var(--red); }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; display: grid; grid-template-columns: 1fr 300px; gap: 28px; }
+
+    /* ===== ARTICLE ===== */
+    .article-section {}
+
+    .article-label {
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .article-title {
+      font-family: var(--serif);
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .article-title em {
+      color: var(--red);
+      font-style: normal;
+    }
+
+    .article-subtitle {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.5;
+      border-left: 4px solid var(--red);
+      padding-left: 14px;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .meta-author { font-weight: 700; color: var(--red); }
+    .meta-dot { color: #ccc; }
+
+    .share-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .share-btn {
+      padding: 6px 14px;
+      border-radius: 3px;
+      border: none;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .share-btn.wpp  { background: #25D366; }
+    .share-btn.fb   { background: #1877F2; }
+    .share-btn.tw   { background: #1DA1F2; }
+    .share-btn.copy { background: #555; }
+    .view-count {
+      font-size: 12px;
+      color: #888;
+      margin-left: auto;
+      align-self: center;
+    }
+
+    .article-img-wrap {
+      width: 100%;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .article-img-wrap img {
+      width: 100%;
+      display: block;
+      border: 2px solid var(--border);
+    }
+    .article-img-wrap .img-placeholder {
+      width: 100%;
+      height: 340px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .img-placeholder .big-icon { font-size: 60px; }
+    .img-placeholder .img-caption-text { font-size: 13px; opacity: 0.8; text-align: center; padding: 0 20px; }
+    /* Animated radar/scan effect */
+    .img-placeholder::before {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 50, 50, 0.3);
+      animation: ripple 3s ease-out infinite;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .img-placeholder::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 50, 50, 0.5);
+      animation: ripple 3s ease-out infinite 1.5s;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    @keyframes ripple {
+      0% { transform: translate(-50%,-50%) scale(0.5); opacity:1; }
+      100% { transform: translate(-50%,-50%) scale(2); opacity:0; }
+    }
+    .img-caption {
+      font-size: 11px;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 18px;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-body { font-size: 16px; line-height: 1.8; color: #222; }
+    .article-body p { margin-bottom: 16px; }
+    .article-body strong { color: var(--dark); }
+    .article-body .destaque {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-left: 5px solid var(--yellow);
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 15px;
+      color: #333;
+      border-radius: 2px;
+    }
+    .article-body .destaque::before {
+      content: "⚠️ ATENÇÃO: ";
+      font-weight: 700;
+      color: #b71c1c;
+    }
+    .article-body .quote-box {
+      background: #f9f9f9;
+      border-left: 5px solid var(--red);
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-style: italic;
+      font-size: 17px;
+      color: #333;
+      position: relative;
+    }
+    .quote-box::before {
+      content: '"';
+      font-size: 60px;
+      color: var(--red);
+      opacity: 0.3;
+      position: absolute;
+      top: -5px;
+      left: 10px;
+      font-family: Georgia, serif;
+    }
+    .quote-author { display: block; font-size: 12px; font-weight: 700; color: var(--red); font-style: normal; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .tag-bar { margin: 20px 0 6px; }
+    .tag { display: inline-block; background: #eee; color: #555; font-size: 11px; padding: 3px 10px; border-radius: 30px; margin: 3px 3px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+
+    /* ===== COMMENTS ===== */
+    .comments-section { margin-top: 28px; border-top: 3px solid var(--red); padding-top: 16px; }
+    .comments-section h3 { font-family: var(--serif); font-size: 18px; margin-bottom: 16px; }
+    .comment { background: var(--light-gray); padding: 12px 14px; margin-bottom: 10px; border-radius: 4px; border-left: 3px solid #ddd; }
+    .comment.top-comment { border-left-color: var(--red); }
+    .comment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+    .avatar.blue  { background: #1877F2; }
+    .avatar.green { background: #2e7d32; }
+    .avatar.gray  { background: #555; }
+    .comment-author { font-weight: 700; font-size: 13px; color: var(--dark); }
+    .comment-time { font-size: 11px; color: #aaa; margin-left: auto; }
+    .comment-text { font-size: 13px; color: #333; line-height: 1.5; }
+    .comment-likes { font-size: 11px; color: #888; margin-top: 6px; }
+    .comment-likes span { color: var(--red); font-weight: 700; }
+
+    /* ===== AD PLACEHOLDER ===== */
+    .ad-box {
+      background: #f0f0f0;
+      border: 1px dashed #bbb;
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {}
+    .sidebar-section { margin-bottom: 24px; }
+    .sidebar-title {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--dark);
+      border-bottom: 3px solid var(--red);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .sidebar-news { display: flex; flex-direction: column; gap: 14px; }
+    .sidebar-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+    .sidebar-img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .sidebar-img.bg1 { background: linear-gradient(135deg, #1a237e, #283593); }
+    .sidebar-img.bg2 { background: linear-gradient(135deg, #1b5e20, #2e7d32); }
+    .sidebar-img.bg3 { background: linear-gradient(135deg, #b71c1c, #c62828); }
+    .sidebar-img.bg4 { background: linear-gradient(135deg, #4a148c, #6a1b9a); }
+    .sidebar-img.bg5 { background: linear-gradient(135deg, #e65100, #ef6c00); }
+    .sidebar-headline {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.35;
+      cursor: pointer;
+    }
+    .sidebar-headline:hover { color: var(--red); text-decoration: underline; }
+    .sidebar-time { font-size: 11px; color: #aaa; margin-top: 3px; }
+
+    .trending-list { list-style: none; counter-reset: trend; }
+    .trending-list li {
+      counter-increment: trend;
+      display: flex;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      line-height: 1.3;
+    }
+    .trending-list li:hover { color: var(--red); }
+    .trending-list li::before {
+      content: counter(trend);
+      font-size: 22px;
+      font-weight: 900;
+      color: #ddd;
+      font-family: var(--serif);
+      min-width: 24px;
+      line-height: 1;
+    }
+    .trending-list li:nth-child(1)::before { color: var(--red); }
+    .trending-list li:nth-child(2)::before { color: #e57373; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #111;
+      color: #666;
+      font-size: 11px;
+      padding: 24px 16px;
+      margin-top: 30px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-logo { color: #fff; font-family: var(--serif); font-size: 18px; font-weight: 900; margin-bottom: 8px; }
+    .footer-logo span { color: var(--yellow); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 12px; }
+    .footer-links a { color: #666; text-decoration: none; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { color: #444; border-top: 1px solid #222; padding-top: 12px; margin-top: 12px; line-height: 1.7; }
+    .footer-disclaimer { color: #333; font-size: 10px; margin-top: 8px; font-style: italic; }
+
+    @media (max-width: 768px) {
+      .container { grid-template-columns: 1fr; }
+      .article-title { font-size: 22px; }
+      .sidebar { display: none; }
+      .share-btn span { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span>☀️ Quarta-feira, 24 de junho de 2026</span>
+    <span>🌡 34°C – Fortaleza/CE</span>
+  </div>
+  <div>
+    <a href="#">Login</a>
+    <a href="#">Newsletter</a>
+    <a href="#">Anuncie</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      BRASIL<span>URGENTE</span>
+      <small>notícias que o governo não quer que você saiba</small>
+    </a>
+    <div class="header-right">
+      <span class="header-date">Atualizado às 14:37</span>
+      <div class="header-search">
+        <input type="text" placeholder="Buscar notícia..." />
+        <button>🔍</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="active">🏠 Início</a>
+    <a href="#">🇧🇷 Política</a>
+    <a href="#">💉 Saúde</a>
+    <a href="#">📡 Tecnologia</a>
+    <a href="#">💰 Economia</a>
+    <a href="#">🌎 Mundo</a>
+    <a href="#">🔴 Ao Vivo</a>
+    <a href="#">🕵️ Investigações</a>
+    <a href="#">⚠️ CENSURADO</a>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <span class="ticker-label">🔴 URGENTE</span>
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      <span>Ex-funcionário do Banco Central faz revelação explosiva sobre notas de R$100</span>
+      <span>Ministério da Saúde nega existência de nanopartículas na água tratada</span>
+      <span>Torres 5G instaladas próximas a escolas preocupam pais em todo o Brasil</span>
+      <span>Cientista demitido da Fiocruz revela dados suprimidos sobre imunidade natural</span>
+      <span>Câmara aprova projeto que obriga transparência total nas emissões do Banco Central</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+  <!-- ARTICLE -->
+  <main class="article-section">
+    <span class="article-label">🔴 EXCLUSIVO · INVESTIGAÇÃO</span>
+
+    <h1 class="article-title">
+      <em>BOMBA:</em> Ex-servidor do Banco Central confirma que notas de R$100 emitidas após 2021 possuem microchip invisível capaz de rastrear localização e hábitos de consumo de todos os brasileiros
+    </h1>
+
+    <p class="article-subtitle">
+      Documento interno obtido com exclusividade pela nossa equipe mostra que o projeto, batizado de "Operação Olho Vivo", teria custado R$ 4,3 bilhões aos cofres públicos e foi aprovado de forma secreta por resolução do CMN sem passar pelo Congresso.
+    </p>
+
+    <div class="article-meta">
+      <span class="meta-author">👤 Redação Brasil Urgente</span>
+      <span class="meta-dot">|</span>
+      <span>📅 24 jun. 2026 — 11h48</span>
+      <span class="meta-dot">|</span>
+      <span>✏️ Atualizado às 14:22</span>
+    </div>
+
+    <div class="share-bar">
+      <button class="share-btn wpp">📲 <span>WhatsApp</span></button>
+      <button class="share-btn fb">👍 <span>Facebook</span></button>
+      <button class="share-btn tw">🐦 <span>Twitter</span></button>
+      <button class="share-btn copy">🔗 <span>Copiar link</span></button>
+      <span class="view-count">👁 <strong>1.284.776</strong> leituras</span>
+    </div>
+
+    <!-- IMAGE -->
+    <div class="article-img-wrap">
+      <div class="img-placeholder">
+        <span class="big-icon">💸📡</span>
+        <span class="img-caption-text">Imagem ilustrativa: representação do suposto chip embutido nas cédulas brasileiras</span>
+      </div>
+    </div>
+    <p class="img-caption">
+      Imagem meramente ilustrativa. Reprodução: Brasil Urgente / Arte: Departamento Gráfico
+    </p>
+
+    <!-- BODY -->
+    <div class="article-body">
+      <p>
+        Uma <strong>revelação explosiva</strong> que promete abalar o sistema financeiro nacional veio à tona nesta quarta-feira. O engenheiro de sistemas <strong>Carlos Henrique Mafra</strong>, ex-servidor concursado do Banco Central do Brasil por 14 anos, concedeu entrevista exclusiva à nossa equipe e exibiu o que afirma ser um documento sigiloso classificado como "RESTRITO–CONFIDENCIAL" comprovando a existência de um programa de rastreamento embutido nas novas cédulas emitidas a partir de janeiro de 2021.
+      </p>
+
+      <p>
+        Segundo Mafra, os chips — baseados em tecnologia RFID de geração avançada, do tamanho de um grão de areia — foram inseridos discretamente no papel-moeda durante o processo de impressão, realizado pela <strong>Casa da Moeda do Brasil</strong>. Eles seriam ativados automaticamente ao passarem perto das torres de telefonia 5G instaladas em todo o país nos últimos anos.
+      </p>
+
+      <div class="destaque">
+        Segundo fontes internas, <strong>98,7% das notas de R$100 e R$200</strong> em circulação no Brasil já conteriam o dispositivo. A informação foi negada pelo Banco Central em nota, mas especialistas apontam que a própria negativa viria acompanhada de omissões suspeitas.
+      </div>
+
+      <div class="quote-box">
+        Eu mesmo ajudei a desenvolver parte do protocolo de comunicação desses dispositivos. Quando percebi para o que seria utilizado, tentei denunciar internamente e fui sumariamente demitido, sem direito a recurso. Minha família recebeu ligações anônimas na semana seguinte.
+        <span class="quote-author">— Carlos Henrique Mafra, ex-engenheiro do Banco Central</span>
+      </div>
+
+      <p>
+        De acordo com o suposto documento exibido por Mafra — que nossa equipe não pôde verificar de forma independente junto aos órgãos oficiais, pois os pedidos via Lei de Acesso à Informação foram <strong>negados por "razões de segurança nacional"</strong> — os chips transmitiriam dados como: valor da nota, geolocalização em tempo real, e um código único vinculado ao CPF do último titular que realizou um Pix acima de R$50,00.
+      </p>
+
+      <p>
+        A tecnologia estaria integrada ao sistema do <strong>Drex</strong>, a moeda digital do Banco Central, permitindo ao governo monitorar os hábitos de consumo da população mesmo em compras realizadas em dinheiro vivo — eliminando assim a última forma de anonimato financeiro dos cidadãos brasileiros.
+      </p>
+
+      <div class="quote-box">
+        É o fim do dinheiro privado. Quando você paga com nota de cem em uma padaria, o governo sabe onde você está, o que você comprou, e em quanto tempo vai receber mais dinheiro. É controle total disfarçado de modernização.
+        <span class="quote-author">— Prof. Dr. Renato Cavalcante, Especialista em Cibersegurança (não vinculado ao governo)</span>
+      </div>
+
+      <p>
+        O Banco Central, em nota oficial enviada à nossa redação, afirmou que "as alegações são inverídicas e não têm qualquer respaldo técnico ou legal", e que "as cédulas brasileiras seguem padrões internacionais de segurança estabelecidos pelo BIS (Banco de Compensações Internacionais)". No entanto, <strong>a nota não mencionou explicitamente</strong> a ausência de chips RFID nas notas — lacuna que analistas apontam como significativa.
+      </p>
+
+      <p>
+        Procurado por nossa equipe, o Ministério da Fazenda não respondeu até o fechamento desta reportagem. A assessoria do CMN (Conselho Monetário Nacional) informou apenas que "não comenta especulações".
+      </p>
+
+      <div class="destaque">
+        Nossa reportagem tentou obter os supostos documentos comprobatórios por meio oficial. O pedido foi negado três vezes seguidas pelo portal e-SIC, com justificativa de "sigilo por prazo indeterminado" — o que, segundo especialistas em transparência pública, é <strong>juridicamente impossível</strong> segundo a LAI.
+      </div>
+
+      <p>
+        Mafra afirma que entregou cópias dos documentos a um advogado e a um parlamentar federal, cujos nomes não pôde revelar "por questões de segurança". Ele diz estar morando em local sigiloso desde que saiu do Banco Central, em outubro de 2023. "Tenho medo? Tenho. Mas o povo brasileiro precisa saber o que está acontecendo com o seu próprio dinheiro", afirmou, visivelmente emocionado.
+      </p>
+
+      <p>
+        A reportagem continua em apuração. <strong>Novas revelações serão publicadas nas próximas horas.</strong> Compartilhe para que mais pessoas saibam a verdade.
+      </p>
+
+      <div class="tag-bar">
+        <span class="tag">#BancocentraI</span>
+        <span class="tag">#Chip</span>
+        <span class="tag">#DinheiroVigiado</span>
+        <span class="tag">#5G</span>
+        <span class="tag">#Drex</span>
+        <span class="tag">#OperaçãoOlhoVivo</span>
+        <span class="tag">#Censura</span>
+      </div>
+    </div>
+
+    <!-- AD -->
+    <div class="ad-box">[ Publicidade ]</div>
+
+    <!-- COMMENTS -->
+    <div class="comments-section">
+      <h3>💬 Comentários (3.847)</h3>
+
+      <div class="comment top-comment">
+        <div class="comment-header">
+          <div class="avatar">M</div>
+          <span class="comment-author">Marcos A. Ferreira</span>
+          <span class="comment-time">há 23 min</span>
+        </div>
+        <p class="comment-text">EU SABIA!!! Semana passada meu sobrinho que trabalha com informática me falou que tinha algo estranho nas notas novas. Passei a usar só notas velhas desde então. Compartilhei pra todo mundo no grupo da família 🙏🙏</p>
+        <div class="comment-likes">👍 <span>4.211</span> curtidas · Responder</div>
+      </div>
+
+      <div class="comment">
+        <div class="comment-header">
+          <div class="avatar blue">P</div>
+          <span class="comment-author">Patricia Rodrigues</span>
+          <span class="comment-time">há 41 min</span>
+        </div>
+        <p class="comment-text">Não me surpreende NADA. Já falei pro meu marido faz tempo que o Drex era pra isso. Dinheiro físico é o único jeito de ser livre. Tô fora do Pix desde que saiu essa notícia</p>
+        <div class="comment-likes">👍 <span>2.988</span> curtidas · Responder</div>
+      </div>
+
+      <div class="comment">
+        <div class="comment-header">
+          <div class="avatar gray">J</div>
+          <span class="comment-author">Jailson M.</span>
+          <span class="comment-time">há 1 hora</span>
+        </div>
+        <p class="comment-text">Minha cunhada trabalha no banco e confirmou que os funcionários foram orientados a NÃO falar sobre isso para clientes. Isso aqui é REAL gente. Acordem!</p>
+        <div class="comment-likes">👍 <span>1.540</span> curtidas · Responder</div>
+      </div>
+
+      <div class="comment">
+        <div class="comment-header">
+          <div class="avatar green">R</div>
+          <span class="comment-author">Roberto C. Lima</span>
+          <span class="comment-time">há 2 horas</span>
+        </div>
+        <p class="comment-text">Galera, eu testei com um leitor RFID que tenho aqui e as notas novas dão sinal sim! Alguém mais testou? Posso mandar vídeo no grupo se quiserem</p>
+        <div class="comment-likes">👍 <span>3.102</span> curtidas · Responder</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="ad-box" style="padding:30px 10px; font-size:10px;">
+      <div style="font-size:22px;margin-bottom:6px;">📢</div>
+      [ ANÚNCIO 300×250 ]
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">🔥 Mais Lidas Agora</div>
+      <ol class="trending-list">
+        <li>Chip em notas de R$100: tudo que o governo não quer que você saiba</li>
+        <li>Médico é silenciado após revelar protocolo alternativo de saúde proibido no Brasil</li>
+        <li>Torres 5G: o que acontece com o seu corpo a menos de 300 metros?</li>
+        <li>Ex-ministro confirma: câmeras do celular podem ser ativadas remotamente pelo governo</li>
+        <li>Água tratada com fluoreto: estudo inédito liga substância a perda de memória</li>
+      </ol>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">📰 Últimas Notícias</div>
+      <div class="sidebar-news">
+        <div class="sidebar-item">
+          <div class="sidebar-img bg1">🏛</div>
+          <div>
+            <p class="sidebar-headline">Congresso vota projeto secreto que amplia controle estatal sobre contas bancárias de pessoa física</p>
+            <p class="sidebar-time">há 18 min</p>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-img bg2">💊</div>
+          <div>
+            <p class="sidebar-headline">Remédio natural que "cura" hipertensão sem efeitos colaterais é proibido pela Anvisa sem explicação</p>
+            <p class="sidebar-time">há 35 min</p>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-img bg3">📡</div>
+          <div>
+            <p class="sidebar-headline">Engenheiro denuncia: antenas 5G instaladas em escolas públicas operam em frequência não autorizada</p>
+            <p class="sidebar-time">há 1h 12min</p>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-img bg4">🛸</div>
+          <div>
+            <p class="sidebar-headline">EUA libera documentos que confirmam: OVNIs monitoram usinas nucleares há décadas — Brasil também teria casos</p>
+            <p class="sidebar-time">há 2h</p>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-img bg5">📲</div>
+          <div>
+            <p class="sidebar-headline">Whatsapp passa a compartilhar localização com o governo automaticamente, segundo novo contrato revelado</p>
+            <p class="sidebar-time">há 3h 44min</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">⚡ Fique por dentro</div>
+      <div style="background:#f9f9f9; border:1px solid #ddd; padding:14px; text-align:center;">
+        <div style="font-size:28px; margin-bottom:8px;">📩</div>
+        <p style="font-size:12px; color:#555; margin-bottom:10px; line-height:1.5;">Receba as notícias que a mídia mainstream tenta esconder. Direto no seu e-mail.</p>
+        <input type="email" placeholder="seu@email.com.br" style="width:100%; padding:7px; border:1px solid #ccc; border-radius:3px; font-size:12px; margin-bottom:8px;" />
+        <button style="width:100%; background:var(--red); color:#fff; border:none; padding:9px; font-weight:700; font-size:12px; border-radius:3px; cursor:pointer; text-transform:uppercase; letter-spacing:0.5px;">QUERO A VERDADE</button>
+      </div>
+    </div>
+
+    <div class="ad-box" style="padding:30px 10px; font-size:10px;">
+      <div style="font-size:22px;margin-bottom:6px;">📢</div>
+      [ ANÚNCIO 300×600 ]
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">BRASIL<span>URGENTE</span></div>
+    <div class="footer-links">
+      <a href="#">Quem Somos</a>
+      <a href="#">Contato</a>
+      <a href="#">Anuncie</a>
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">Redação</a>
+      <a href="#">Correções</a>
+    </div>
+    <div class="footer-copy">
+      © 2026 Brasil Urgente Comunicação Digital LTDA — CNPJ: 47.XXX.XXX/0001-XX — Todos os direitos reservados.<br>
+      Registro no Ministério das Comunicações nº 0017-BR/2021. Sede: SCS Quadra 2 Bloco C, Brasília – DF.
+    </div>
+    <div class="footer-disclaimer">
+      ⚠️ Este site é uma paródia/sátira criada para fins de entretenimento e vídeo. As informações publicadas aqui são <strong>completamente fictícias</strong> e não representam fatos reais. Nenhuma das notícias exibidas deve ser interpretada como verdadeira.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
